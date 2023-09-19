@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
+import { BarChart, Bar, XAxis, YAxis, Tooltip,} from 'recharts';
+import { Audio, Grid } from 'react-loader-spinner';
 
 const Phones = () => {
     const [phones, setPhones] = useState([])
+    const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
@@ -23,11 +24,35 @@ const Phones = () => {
             })
             console.log(phonesWithFakeData);
             setPhones(phonesWithFakeData)
+            setLoading(false);
         });
     }, [])
 
     return (
         <div>
+            {
+                loading && <div>
+                    <Audio 
+            height="80"
+            width="80"
+            radius="9"
+            color = "green"
+            ariaLabel="three-dots-loading"
+            wrapperStyle
+            wrapperClass
+            />
+            <Grid
+  height="80"
+  width="80"
+  color="#4fa94d"
+  ariaLabel="grid-loading"
+  radius="12.5"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+                </div>
+            }
             <h2 className="text-5xl">Phones: {phones.length}</h2>
             <BarChart width={1200} height={350} data={phones}>
           <Bar dataKey="price" fill="#8884d8" />
